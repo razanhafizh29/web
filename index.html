@@ -11,7 +11,7 @@
 body{
     margin:0;
     padding:0;
-    background:#F5F5F0;
+    background:linear-gradient(135deg,#F5F5F0,#E8F0F2);
     font-family:'Poppins',sans-serif;
     display:flex;
     justify-content:center;
@@ -21,38 +21,76 @@ body{
     overflow:hidden;
 }
 
+/* FLOATING BALLOONS */
+.balloon{
+    position:fixed;
+    bottom:-150px;
+    width:40px;
+    height:50px;
+    background:#8EACBB;
+    border-radius:50%;
+    animation:floatUp 12s linear infinite;
+    opacity:0.5;
+}
+.balloon:after{
+    content:'';
+    position:absolute;
+    width:2px;
+    height:40px;
+    background:#aaa;
+    left:50%;
+    top:50px;
+}
+@keyframes floatUp{
+    from{transform:translateY(0);}
+    to{transform:translateY(-120vh);}
+}
+
 .card{
     background:#fff;
     width:95%;
     max-width:450px;
     padding:35px 25px;
     border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.05);
+    box-shadow:0 15px 35px rgba(0,0,0,0.08);
     text-align:center;
     position:relative;
+    overflow:hidden;
+}
+
+/* TOP DECORATION */
+.card:before{
+    content:"🎉 🎂 🎈 ✨";
+    position:absolute;
+    top:10px;
+    left:0;
+    width:100%;
+    font-size:18px;
+    opacity:0.3;
 }
 
 h1{
     font-family:'Playfair Display',serif;
-    font-size:24px;
+    font-size:22px;
     color:#2C3E50;
 }
 
 .sub-title{
     font-size:13px;
     color:#95A5A6;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 button{
     padding:10px 20px;
-    background:#8EACBB;
+    background:linear-gradient(45deg,#8EACBB,#6F8FA3);
     border:none;
     color:white;
     border-radius:20px;
     cursor:pointer;
+    transition:0.3s;
 }
-button:hover{ background:#7A96A5; }
+button:hover{ transform:scale(1.05); }
 
 input{
     padding:8px;
@@ -62,7 +100,7 @@ input{
     margin:10px 0;
 }
 
-/* PANDA ANIMATION */
+/* PANDA */
 .panda{
     width:120px;
     margin:10px auto;
@@ -77,14 +115,23 @@ input{
 /* MENU */
 .menu{
     display:flex;
-    gap:5px;
+    gap:8px;
     margin-bottom:15px;
 }
 .menu button{
     flex:1;
     font-size:12px;
+    position:relative;
+}
+.menu button:after{
+    content:"✨";
+    position:absolute;
+    top:-8px;
+    right:-5px;
+    font-size:10px;
 }
 
+/* SECTIONS */
 .section{ display:none; }
 .active{ display:block; animation:fadeIn 0.5s ease; }
 
@@ -100,6 +147,7 @@ input{
     height:250px;
     overflow:hidden;
     border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
 }
 .slide{ display:none; height:100%; }
 .slide img{
@@ -125,8 +173,9 @@ input{
     width:120px;
     height:120px;
     margin:10px auto;
-    border-radius:10px;
+    border-radius:50%;
     overflow:hidden;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
 }
 .song-cover img{
     width:100%;
@@ -134,6 +183,23 @@ input{
     object-fit:cover;
 }
 audio{ width:100%; }
+
+.song-note{
+    font-size:12px;
+    color:#7A96A5;
+    margin-top:-5px;
+    margin-bottom:10px;
+    font-style:italic;
+    opacity:0.9;
+}
+
+/* MESSAGE BOX */
+.message-box{
+    background:#F8FBFC;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:inset 0 0 10px rgba(0,0,0,0.05);
+}
 
 /* CONFETTI */
 .confetti{
@@ -152,87 +218,82 @@ audio{ width:100%; }
 </head>
 <body>
 
-<!-- BACKSOUND -->
+<div class="balloon" style="left:10%; animation-delay:0s;"></div>
+<div class="balloon" style="left:40%; animation-delay:3s;"></div>
+<div class="balloon" style="left:70%; animation-delay:6s;"></div>
+
 <audio id="backsound" loop>
-    <source src="hbd.mp3" type="audio/mpeg">
+<source src="hbd.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
 
-<!-- PASSWORD -->
 <div id="passwordPage">
-    <img src="panda1.png.png" class="panda">
-    <h1>Masukin Password</h1>
-    <p class="sub-title">Clue: Tanggal kita 💕</p>
-    <input type="password" id="passwordInput" placeholder="••••">
-    <br>
-    <button onclick="checkPassword()">Masuk</button>
-    <p id="error" style="color:red; font-size:12px;"></p>
+<img src="panda1.png.png" class="panda">
+<h1>Masukin Password</h1>
+<p class="sub-title">Clue: Tanggal kita 💕</p>
+<input type="password" id="passwordInput" placeholder="••••">
+<br>
+<button onclick="checkPassword()">Masuk</button>
+<p id="error" style="color:red; font-size:12px;"></p>
 </div>
 
-<!-- OPENING -->
 <div id="opening" class="hidden">
-    <!-- PANDA FULL BODY -->
-    <img src="pandaa2.png" class="panda">
-    <h1>For You 🎂</h1>
-    <p class="sub-title">Yaya Day's</p>
-    <button onclick="startWebsite()">Open 🎁</button>
+<img src="pandaa2.png" class="panda">
+<h1>For You 🎂</h1>
+<p class="sub-title">Yaya Day's</p>
+<button onclick="startWebsite()">Open 🎁</button>
 </div>
 
-<!-- MAIN CONTENT -->
 <div id="mainContent" class="hidden">
 
-<h1>Happy Birthday Sayangku</h1>
+<h1>Happy Birthday Sayangku 🎉</h1>
 <div class="sub-title">From Ajann</div>
 
 <div class="menu">
 <button onclick="showSection('memories')">Memories</button>
 <button onclick="showSection('song')">Song</button>
-<button onclick="showSection('ucapan')">Ucapan</button>
+<button onclick="showSection('message')">Message</button>
 </div>
 
-<!-- MEMORIES -->
 <div id="memories" class="section active">
 <div class="slider">
 <div class="slide"><img src="foto1.jpg"></div>
 <div class="slide"><img src="foto2.jpg"></div>
 <div class="slide"><img src="foto3.jpg"></div>
-
 <button class="prev" onclick="changeSlide(-1)">❮</button>
 <button class="next" onclick="changeSlide(1)">❯</button>
 </div>
 </div>
 
-<!-- SONG -->
 <div id="song" class="section">
 <div class="song-cover">
 <img src="Coverlagu.png">
 </div>
-<h3>Ada titik titik di ujung doa</h3>
+<h3>Ada titik titik di ujung doa ✨</h3>
+<div class="song-note">A Song That Remind Me Of Us 💙</div>
 <p>Sal Priadi</p>
-
 <audio id="mainSong" controls>
 <source src="Salpri.mp3" type="audio/mpeg">
 </audio>
 </div>
 
-<!-- UCAPAN -->
-<div id="ucapan" class="section">
-<!-- PANDA PAKAI TOPI -->
+<div id="message" class="section">
 <img src="pandaa3.png" class="panda">
+<div class="message-box">
 <p>
 Semoga kamu panjang umur dan sehat selalu 💕<br><br>
 Semoga semua impian kamu tercapai.<br>
-Aku selalu bangga punya kamu.
+Aku selalu bangga punya kamu.<br><br>
+Happy Birthday 🎂✨
 </p>
+</div>
 </div>
 
 </div>
 </div>
 
 <script>
-
-// PASSWORD
 function checkPassword(){
 let pass=document.getElementById("passwordInput").value;
 if(pass==="0506"){
@@ -243,24 +304,20 @@ document.getElementById("error").innerText="Masa Gatau 🥺";
 }
 }
 
-// OPENING
 function startWebsite(){
 document.getElementById("opening").classList.add("hidden");
 document.getElementById("mainContent").classList.remove("hidden");
-
 let bg=document.getElementById("backsound");
 bg.volume=0.3;
 bg.play();
 }
 
-// MENU
 function showSection(id){
 document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
 document.getElementById(id).classList.add('active');
-if(id==="ucapan"){ launchConfetti(); }
+if(id==="message"){ launchConfetti(); }
 }
 
-// SLIDER
 let slideIndex=0;
 showSlides();
 function changeSlide(n){ slideIndex+=n; showSlides(); }
@@ -272,32 +329,24 @@ slides.forEach(s=>s.style.display="none");
 slides[slideIndex].style.display="block";
 }
 
-// CONFETTI
 function launchConfetti(){
 for(let i=0;i<40;i++){
 let conf=document.createElement("div");
 conf.classList.add("confetti");
 conf.style.left=Math.random()*100+"vw";
 conf.style.backgroundColor=
-["#8EACBB","#D8E2DC","#95A5A6","#2C3E50"][Math.floor(Math.random()*4)];
+["#8EACBB","#D8E2DC","#95A5A6","#2C3E50","#F4A261"][Math.floor(Math.random()*5)];
 conf.style.animationDuration=(Math.random()*3+2)+"s";
 document.body.appendChild(conf);
 setTimeout(()=>conf.remove(),5000);
 }
 }
 
-// BACKSOUND STOP WHEN SONG PLAY
 let mainSong=document.getElementById("mainSong");
 let backsound=document.getElementById("backsound");
 
-mainSong.addEventListener("play",function(){
-backsound.pause();
-});
-
-mainSong.addEventListener("pause",function(){
-backsound.play();
-});
-
+mainSong.addEventListener("play",function(){ backsound.pause(); });
+mainSong.addEventListener("pause",function(){ backsound.play(); });
 </script>
 
 </body>
