@@ -1,1 +1,304 @@
-Hello World
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Special</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#F5F5F0;
+    font-family:'Poppins',sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    color:#4A4A4A;
+    overflow:hidden;
+}
+
+.card{
+    background:#fff;
+    width:95%;
+    max-width:450px;
+    padding:35px 25px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.05);
+    text-align:center;
+    position:relative;
+}
+
+h1{
+    font-family:'Playfair Display',serif;
+    font-size:24px;
+    color:#2C3E50;
+}
+
+.sub-title{
+    font-size:13px;
+    color:#95A5A6;
+    margin-bottom:20px;
+}
+
+button{
+    padding:10px 20px;
+    background:#8EACBB;
+    border:none;
+    color:white;
+    border-radius:20px;
+    cursor:pointer;
+}
+button:hover{ background:#7A96A5; }
+
+input{
+    padding:8px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    text-align:center;
+    margin:10px 0;
+}
+
+/* PANDA ANIMATION */
+.panda{
+    width:120px;
+    margin:10px auto;
+    animation:wiggle 2s infinite ease-in-out;
+}
+@keyframes wiggle{
+    0%{ transform:rotate(-4deg);}
+    50%{ transform:rotate(4deg);}
+    100%{ transform:rotate(-4deg);}
+}
+
+/* MENU */
+.menu{
+    display:flex;
+    gap:5px;
+    margin-bottom:15px;
+}
+.menu button{
+    flex:1;
+    font-size:12px;
+}
+
+.section{ display:none; }
+.active{ display:block; animation:fadeIn 0.5s ease; }
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* SLIDER */
+.slider{
+    position:relative;
+    width:100%;
+    height:250px;
+    overflow:hidden;
+    border-radius:15px;
+}
+.slide{ display:none; height:100%; }
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.prev,.next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.3);
+    color:white;
+    border:none;
+    padding:5px 10px;
+    cursor:pointer;
+}
+.prev{ left:5px; }
+.next{ right:5px; }
+
+/* SONG */
+.song-cover{
+    width:120px;
+    height:120px;
+    margin:10px auto;
+    border-radius:10px;
+    overflow:hidden;
+}
+.song-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+audio{ width:100%; }
+
+/* CONFETTI */
+.confetti{
+    position:fixed;
+    width:8px;
+    height:8px;
+    top:0;
+    animation:fall 3s linear forwards;
+}
+@keyframes fall{
+    to{ transform:translateY(100vh) rotate(360deg); opacity:0;}
+}
+
+.hidden{ display:none; }
+</style>
+</head>
+<body>
+
+<!-- BACKSOUND -->
+<audio id="backsound" loop>
+    <source src="hbd.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+<!-- PASSWORD -->
+<div id="passwordPage">
+    <img src="panda1.png.png" class="panda">
+    <h1>Masukin Password</h1>
+    <p class="sub-title">Clue: Tanggal kita 💕</p>
+    <input type="password" id="passwordInput" placeholder="••••">
+    <br>
+    <button onclick="checkPassword()">Masuk</button>
+    <p id="error" style="color:red; font-size:12px;"></p>
+</div>
+
+<!-- OPENING -->
+<div id="opening" class="hidden">
+    <!-- PANDA FULL BODY -->
+    <img src="pandaa2.png" class="panda">
+    <h1>For You 🎂</h1>
+    <p class="sub-title">Yaya Day's</p>
+    <button onclick="startWebsite()">Open 🎁</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="hidden">
+
+<h1>Happy Birthday Sayangku</h1>
+<div class="sub-title">From Ajann</div>
+
+<div class="menu">
+<button onclick="showSection('memories')">Memories</button>
+<button onclick="showSection('song')">Song</button>
+<button onclick="showSection('ucapan')">Ucapan</button>
+</div>
+
+<!-- MEMORIES -->
+<div id="memories" class="section active">
+<div class="slider">
+<div class="slide"><img src="foto1.jpg"></div>
+<div class="slide"><img src="foto2.jpg"></div>
+<div class="slide"><img src="foto3.jpg"></div>
+
+<button class="prev" onclick="changeSlide(-1)">❮</button>
+<button class="next" onclick="changeSlide(1)">❯</button>
+</div>
+</div>
+
+<!-- SONG -->
+<div id="song" class="section">
+<div class="song-cover">
+<img src="Coverlagu.png">
+</div>
+<h3>Ada titik titik di ujung doa</h3>
+<p>Sal Priadi</p>
+
+<audio id="mainSong" controls>
+<source src="Salpri.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<!-- UCAPAN -->
+<div id="ucapan" class="section">
+<!-- PANDA PAKAI TOPI -->
+<img src="pandaa3.png" class="panda">
+<p>
+Semoga kamu panjang umur dan sehat selalu 💕<br><br>
+Semoga semua impian kamu tercapai.<br>
+Aku selalu bangga punya kamu.
+</p>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// PASSWORD
+function checkPassword(){
+let pass=document.getElementById("passwordInput").value;
+if(pass==="0506"){
+document.getElementById("passwordPage").classList.add("hidden");
+document.getElementById("opening").classList.remove("hidden");
+}else{
+document.getElementById("error").innerText="Masa Gatau 🥺";
+}
+}
+
+// OPENING
+function startWebsite(){
+document.getElementById("opening").classList.add("hidden");
+document.getElementById("mainContent").classList.remove("hidden");
+
+let bg=document.getElementById("backsound");
+bg.volume=0.3;
+bg.play();
+}
+
+// MENU
+function showSection(id){
+document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+if(id==="ucapan"){ launchConfetti(); }
+}
+
+// SLIDER
+let slideIndex=0;
+showSlides();
+function changeSlide(n){ slideIndex+=n; showSlides(); }
+function showSlides(){
+let slides=document.querySelectorAll(".slide");
+if(slideIndex>=slides.length) slideIndex=0;
+if(slideIndex<0) slideIndex=slides.length-1;
+slides.forEach(s=>s.style.display="none");
+slides[slideIndex].style.display="block";
+}
+
+// CONFETTI
+function launchConfetti(){
+for(let i=0;i<40;i++){
+let conf=document.createElement("div");
+conf.classList.add("confetti");
+conf.style.left=Math.random()*100+"vw";
+conf.style.backgroundColor=
+["#8EACBB","#D8E2DC","#95A5A6","#2C3E50"][Math.floor(Math.random()*4)];
+conf.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),5000);
+}
+}
+
+// BACKSOUND STOP WHEN SONG PLAY
+let mainSong=document.getElementById("mainSong");
+let backsound=document.getElementById("backsound");
+
+mainSong.addEventListener("play",function(){
+backsound.pause();
+});
+
+mainSong.addEventListener("pause",function(){
+backsound.play();
+});
+
+</script>
+
+</body>
+</html>
