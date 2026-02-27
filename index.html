@@ -21,7 +21,7 @@ body{
     overflow:hidden;
 }
 
-/* FLOATING BALLOONS */
+/* Background Balloon */
 .balloon{
     position:fixed;
     bottom:-150px;
@@ -30,7 +30,9 @@ body{
     background:#8EACBB;
     border-radius:50%;
     animation:floatUp 12s linear infinite;
-    opacity:0.5;
+    opacity:0.35;
+    z-index:0;
+    pointer-events:none;
 }
 .balloon:after{
     content:'';
@@ -46,6 +48,7 @@ body{
     to{transform:translateY(-120vh);}
 }
 
+/* Card */
 .card{
     background:#fff;
     width:95%;
@@ -56,17 +59,7 @@ body{
     text-align:center;
     position:relative;
     overflow:hidden;
-}
-
-/* TOP DECORATION */
-.card:before{
-    content:"🎉 🎂 🎈 💗";
-    position:absolute;
-    top:10px;
-    left:0;
-    width:100%;
-    font-size:18px;
-    opacity:0.3;
+    z-index:2;
 }
 
 h1{
@@ -100,7 +93,7 @@ input{
     margin:10px 0;
 }
 
-/* PANDA */
+/* Panda */
 .panda{
     width:120px;
     margin:10px auto;
@@ -112,7 +105,7 @@ input{
     100%{ transform:rotate(-4deg);}
 }
 
-/* MENU */
+/* Menu */
 .menu{
     display:flex;
     gap:8px;
@@ -121,30 +114,23 @@ input{
 .menu button{
     flex:1;
     font-size:12px;
-    position:relative;
-}
-.menu button:after{
-    content:"💗";
-    position:absolute;
-    top:-8px;
-    right:-5px;
-    font-size:10px;
 }
 
-/* SECTIONS */
+/* Section */
 .section{ display:none; }
 .active{ display:block; animation:fadeIn 0.5s ease; }
+.hidden{ display:none; }
 
 @keyframes fadeIn{
     from{opacity:0; transform:translateY(10px);}
     to{opacity:1; transform:translateY(0);}
 }
 
-/* SLIDER */
+/* Slider 1:1 */
 .slider{
     position:relative;
     width:100%;
-    height:250px;
+    aspect-ratio:1/1;
     overflow:hidden;
     border-radius:15px;
     box-shadow:0 8px 20px rgba(0,0,0,0.1);
@@ -168,7 +154,7 @@ input{
 .prev{ left:5px; }
 .next{ right:5px; }
 
-/* SONG */
+/* Song */
 .song-cover{
     width:120px;
     height:120px;
@@ -182,18 +168,15 @@ input{
     height:100%;
     object-fit:cover;
 }
-audio{ width:100%; }
-
 .song-note{
     font-size:12px;
     color:#7A96A5;
+    font-style:italic;
     margin-top:-5px;
     margin-bottom:10px;
-    font-style:italic;
-    opacity:0.9;
 }
 
-/* MESSAGE BOX */
+/* Message Box */
 .message-box{
     background:#F8FBFC;
     padding:15px;
@@ -201,23 +184,47 @@ audio{ width:100%; }
     box-shadow:inset 0 0 10px rgba(0,0,0,0.05);
 }
 
-/* CONFETTI */
+/* Cake Game */
+.cake{
+    font-size:80px;
+    position:relative;
+    margin:20px 0;
+}
+#candle{
+    position:absolute;
+    top:-20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:30px;
+}
+#ageText{
+    font-size:28px;
+    color:#E76F51;
+    animation:pop 1s ease forwards;
+}
+@keyframes pop{
+    0%{ transform:scale(0); opacity:0;}
+    100%{ transform:scale(1); opacity:1;}
+}
+
+/* Confetti */
 .confetti{
     position:fixed;
     width:8px;
     height:8px;
     top:0;
     animation:fall 3s linear forwards;
+    z-index:1;
+    pointer-events:none;
 }
 @keyframes fall{
     to{ transform:translateY(100vh) rotate(360deg); opacity:0;}
 }
-
-.hidden{ display:none; }
 </style>
 </head>
 <body>
 
+<!-- Background Balloons -->
 <div class="balloon" style="left:10%; animation-delay:0s;"></div>
 <div class="balloon" style="left:40%; animation-delay:3s;"></div>
 <div class="balloon" style="left:70%; animation-delay:6s;"></div>
@@ -228,16 +235,27 @@ audio{ width:100%; }
 
 <div class="card">
 
+<!-- PASSWORD -->
 <div id="passwordPage">
 <img src="panda1.png.png" class="panda">
 <h1>Masukin Password</h1>
 <p class="sub-title">Clue: Tanggal kita 💕</p>
-<input type="password" id="passwordInput" placeholder="••••">
+<input type="password" id="passwordInput">
 <br>
 <button onclick="checkPassword()">Masuk</button>
 <p id="error" style="color:red; font-size:12px;"></p>
 </div>
 
+<!-- MINI GAME -->
+<div id="blowGame" class="hidden">
+<h1>Tiup Lilinnya 🎂</h1>
+<p class="sub-title">Tiup di mic yaa</p>
+<div class="cake">🎂<div id="candle">🕯️</div></div>
+<h2 id="ageText" class="hidden">🎉 Happy 19 🎉</h2>
+<button id="nextBtn" class="hidden" onclick="showOpening()">Next 💌</button>
+</div>
+
+<!-- OPENING -->
 <div id="opening" class="hidden">
 <img src="pandaa2.png" class="panda">
 <h1>For You 🎂</h1>
@@ -245,9 +263,10 @@ audio{ width:100%; }
 <button onclick="startWebsite()">Open 🎁</button>
 </div>
 
+<!-- MAIN CONTENT -->
 <div id="mainContent" class="hidden">
 
-<h1>Happy Birthday Sayangku </h1>
+<h1>Happy Birthday Ayaa </h1>
 <div class="sub-title">From Ajann</div>
 
 <div class="menu">
@@ -298,10 +317,16 @@ function checkPassword(){
 let pass=document.getElementById("passwordInput").value;
 if(pass==="0506"){
 document.getElementById("passwordPage").classList.add("hidden");
-document.getElementById("opening").classList.remove("hidden");
+document.getElementById("blowGame").classList.remove("hidden");
+startMic();
 }else{
 document.getElementById("error").innerText="Masa Gatau 🥺";
 }
+}
+
+function showOpening(){
+document.getElementById("blowGame").classList.add("hidden");
+document.getElementById("opening").classList.remove("hidden");
 }
 
 function startWebsite(){
@@ -312,12 +337,12 @@ bg.volume=0.3;
 bg.play();
 }
 
-function showSection(id){
-document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-if(id==="message"){ launchConfetti(); }
-}
+let mainSong=document.getElementById("mainSong");
+let backsound=document.getElementById("backsound");
+mainSong?.addEventListener("play",()=>backsound.pause());
+mainSong?.addEventListener("pause",()=>backsound.play());
 
+/* Slider */
 let slideIndex=0;
 showSlides();
 function changeSlide(n){ slideIndex+=n; showSlides(); }
@@ -327,6 +352,11 @@ if(slideIndex>=slides.length) slideIndex=0;
 if(slideIndex<0) slideIndex=slides.length-1;
 slides.forEach(s=>s.style.display="none");
 slides[slideIndex].style.display="block";
+}
+
+function showSection(id){
+document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+document.getElementById(id).classList.add('active');
 }
 
 function launchConfetti(){
@@ -342,14 +372,33 @@ setTimeout(()=>conf.remove(),5000);
 }
 }
 
-let mainSong=document.getElementById("mainSong");
-let backsound=document.getElementById("backsound");
-
-mainSong.addEventListener("play",function(){ backsound.pause(); });
-mainSong.addEventListener("pause",function(){ backsound.play(); });
+/* Mic Game */
+let audioContext, analyser, microphone, dataArray;
+function startMic(){
+navigator.mediaDevices.getUserMedia({ audio:true })
+.then(stream=>{
+audioContext=new (window.AudioContext||window.webkitAudioContext)();
+analyser=audioContext.createAnalyser();
+microphone=audioContext.createMediaStreamSource(stream);
+microphone.connect(analyser);
+analyser.fftSize=256;
+dataArray=new Uint8Array(analyser.frequencyBinCount);
+detectBlow();
+});
+}
+function detectBlow(){
+analyser.getByteFrequencyData(dataArray);
+let volume=dataArray.reduce((a,b)=>a+b)/dataArray.length;
+if(volume>60){
+document.getElementById("candle").innerText="💨";
+document.getElementById("ageText").classList.remove("hidden");
+document.getElementById("nextBtn").classList.remove("hidden");
+launchConfetti();
+return;
+}
+requestAnimationFrame(detectBlow);
+}
 </script>
 
 </body>
 </html>
-
-
