@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Special</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -62,10 +62,14 @@ body{
     z-index:2;
 }
 
-h1{
-    font-family:'Playfair Display',serif;
-    font-size:22px;
+/* NEW MAIN TITLE STYLE */
+.main-title{
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    letter-spacing:0.5px;
     color:#2C3E50;
+    margin-bottom:5px;
 }
 
 .sub-title{
@@ -224,7 +228,6 @@ input{
 </head>
 <body>
 
-<!-- Background Balloons -->
 <div class="balloon" style="left:10%; animation-delay:0s;"></div>
 <div class="balloon" style="left:40%; animation-delay:3s;"></div>
 <div class="balloon" style="left:70%; animation-delay:6s;"></div>
@@ -235,7 +238,6 @@ input{
 
 <div class="card">
 
-<!-- PASSWORD -->
 <div id="passwordPage">
 <img src="panda1.png.png" class="panda">
 <h1>Masukin Password</h1>
@@ -246,7 +248,6 @@ input{
 <p id="error" style="color:red; font-size:12px;"></p>
 </div>
 
-<!-- MINI GAME -->
 <div id="blowGame" class="hidden">
 <h1>Tiup Lilinnya 🎂</h1>
 <p class="sub-title">Tiup di mic yaa</p>
@@ -255,7 +256,6 @@ input{
 <button id="nextBtn" class="hidden" onclick="showOpening()">Next 💌</button>
 </div>
 
-<!-- OPENING -->
 <div id="opening" class="hidden">
 <img src="pandaa2.png" class="panda">
 <h1>For You 🎂</h1>
@@ -263,10 +263,9 @@ input{
 <button onclick="startWebsite()">Open 🎁</button>
 </div>
 
-<!-- MAIN CONTENT -->
 <div id="mainContent" class="hidden">
 
-<h1>Happy Birthday Ayaa </h1>
+<div class="main-title">Happy Birthday Ayaa</div>
 <div class="sub-title">From Ajann</div>
 
 <div class="menu">
@@ -342,7 +341,6 @@ let backsound=document.getElementById("backsound");
 mainSong?.addEventListener("play",()=>backsound.pause());
 mainSong?.addEventListener("pause",()=>backsound.play());
 
-/* Slider */
 let slideIndex=0;
 showSlides();
 function changeSlide(n){ slideIndex+=n; showSlides(); }
@@ -372,7 +370,6 @@ setTimeout(()=>conf.remove(),5000);
 }
 }
 
-/* Mic Game */
 let audioContext, analyser, microphone, dataArray;
 function startMic(){
 navigator.mediaDevices.getUserMedia({ audio:true })
