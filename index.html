@@ -21,7 +21,6 @@ body{
     overflow:hidden;
 }
 
-/* Background Balloon */
 .balloon{
     position:fixed;
     bottom:-150px;
@@ -48,7 +47,6 @@ body{
     to{transform:translateY(-120vh);}
 }
 
-/* Card */
 .card{
     background:#fff;
     width:95%;
@@ -62,12 +60,9 @@ body{
     z-index:2;
 }
 
-/* NEW MAIN TITLE STYLE */
 .main-title{
-    font-family:'Poppins',sans-serif;
     font-weight:700;
     font-size:26px;
-    letter-spacing:0.5px;
     color:#2C3E50;
     margin-bottom:5px;
 }
@@ -97,7 +92,6 @@ input{
     margin:10px 0;
 }
 
-/* Panda */
 .panda{
     width:120px;
     margin:10px auto;
@@ -109,7 +103,6 @@ input{
     100%{ transform:rotate(-4deg);}
 }
 
-/* Menu */
 .menu{
     display:flex;
     gap:8px;
@@ -120,7 +113,6 @@ input{
     font-size:12px;
 }
 
-/* Section */
 .section{ display:none; }
 .active{ display:block; animation:fadeIn 0.5s ease; }
 .hidden{ display:none; }
@@ -130,7 +122,6 @@ input{
     to{opacity:1; transform:translateY(0);}
 }
 
-/* Slider 1:1 */
 .slider{
     position:relative;
     width:100%;
@@ -158,7 +149,6 @@ input{
 .prev{ left:5px; }
 .next{ right:5px; }
 
-/* Song */
 .song-cover{
     width:120px;
     height:120px;
@@ -172,15 +162,7 @@ input{
     height:100%;
     object-fit:cover;
 }
-.song-note{
-    font-size:12px;
-    color:#7A96A5;
-    font-style:italic;
-    margin-top:-5px;
-    margin-bottom:10px;
-}
 
-/* Message Box */
 .message-box{
     background:#F8FBFC;
     padding:15px;
@@ -188,7 +170,6 @@ input{
     box-shadow:inset 0 0 10px rgba(0,0,0,0.05);
 }
 
-/* Cake Game */
 .cake{
     font-size:80px;
     position:relative;
@@ -211,7 +192,6 @@ input{
     100%{ transform:scale(1); opacity:1;}
 }
 
-/* Confetti */
 .confetti{
     position:fixed;
     width:8px;
@@ -234,6 +214,10 @@ input{
 
 <audio id="backsound" loop>
 <source src="hbd.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="blowSound">
+<source src="party.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
@@ -288,9 +272,9 @@ input{
 <div class="song-cover">
 <img src="Coverlagu.png">
 </div>
-<h3>Ada titik titik di ujung doa </h3>
-<div class="song-note">A Song That Remind Me Of Us </div>
-<p>Sal Priadi</p>
+<h3>Ada titik titik di ujung doa</h3>
+<div class="song-note">Sal Priadi</div>
+<p>A Song That Remind Me Of Us</p>
 <audio id="mainSong" controls>
 <source src="Salpri.mp3" type="audio/mpeg">
 </audio>
@@ -355,6 +339,10 @@ slides[slideIndex].style.display="block";
 function showSection(id){
 document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+
+if(id==="message"){
+launchConfetti();
+}
 }
 
 function launchConfetti(){
@@ -383,14 +371,21 @@ dataArray=new Uint8Array(analyser.frequencyBinCount);
 detectBlow();
 });
 }
+
 function detectBlow(){
 analyser.getByteFrequencyData(dataArray);
 let volume=dataArray.reduce((a,b)=>a+b)/dataArray.length;
+
 if(volume>60){
 document.getElementById("candle").innerText="💨";
 document.getElementById("ageText").classList.remove("hidden");
 document.getElementById("nextBtn").classList.remove("hidden");
+
 launchConfetti();
+
+let blowSound=document.getElementById("blowSound");
+blowSound.play();
+
 return;
 }
 requestAnimationFrame(detectBlow);
