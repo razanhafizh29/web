@@ -5,9 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Special</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600&family=Fredoka+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600&family=Fredoka+One&family=Cookie&display=swap" rel="stylesheet">
 
 <style>
+/* fallback kalau font otentik tidak tersedia */
+@font-face {
+    font-family: 'Welcome Darling';
+    src: local('Welcome Darling'), local('WelcomeDarling'),
+         url('https://fonts.cdnfonts.com/s/21945/Welcome-Darling.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 :root{
     --bg1:#FAE8FF;
     --bg2:#DCEBFF;
@@ -115,7 +123,7 @@ body{
 .card:after{bottom:-60px; left:-60px;}
 
 .main-title{
-    font-family:'Cooper Black', 'Fredoka One', 'Playfair Display', cursive;
+    font-family:'Welcome Darling', 'Cooper Black', 'Fredoka One', 'Playfair Display', cursive;
     font-weight:700;
     font-size:38px;
     color:#34495E;
@@ -334,7 +342,7 @@ input{
 <h1>Tiup Lilinnya 🎂</h1>
 <p class="sub-title">Tiup di mic yaa</p>
 <div class="cake">🎂<div id="candle">🕯️</div></div>
-<h2 id="ageText" class="hidden">🎉 Happy 19 🎉</h2>
+<h2 id="ageText" class="hidden">🥳 Ayaa 19's Day 🤩</h2>
 <button id="nextBtn" class="hidden" onclick="showOpening()">Next 💌</button>
 </div>
 
@@ -358,7 +366,7 @@ input{
 
 <div id="memories" class="section active">
 <div class="slider">
-<div class="slide"><img src="foto1.jpg"></div>
+<div class="slide"><img src="satu.png"></div>
 <div class="slide"><img src="foto2.jpg"></div>
 <div class="slide"><img src="foto3.jpg"></div>
 <button class="prev" onclick="changeSlide(-1)">❮</button>
@@ -379,13 +387,14 @@ input{
 </div>
 
 <div id="message" class="section">
-<img src="pandaa3.png" class="panda">
+<img src="ayaa.jpeg" class="panda">
 <div class="message-box">
 <p>
-Semoga kamu panjang umur dan sehat selalu 💕<br><br>
-Semoga semua impian kamu tercapai.<br>
-Aku selalu bangga punya kamu.<br><br>
-Happy Birthday 🎂✨
+Selamat ulang tahun my imup<br><br>
+Panjang umur dan sehat selalu yaa sayangg<br>
+Semoga kamu dimudahkan segala urusannya, dilancarkan selalu rezekinya
+dan lancar dalam karrier kamu yaa sayang, I Love you more than anything bup 💗  <br><br>
+Happy Birthday my love 🎂✨
 </p>
 </div>
 </div>
