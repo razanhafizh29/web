@@ -5,31 +5,51 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Special</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
+:root{
+    --bg1:#FAE8FF;
+    --bg2:#DCEBFF;
+    --primary:#7F8FBC;
+    --primary-2:#F28A8A;
+    --text:#2A2F54;
+}
+*{box-sizing:border-box;}
 body{
     margin:0;
     padding:0;
-    background:linear-gradient(135deg,#F5F5F0,#E8F0F2);
+    background: radial-gradient(circle at 20% 10%, #FFD2E9 0%, transparent 35%), 
+                radial-gradient(circle at 85% 5%, #B6E1FF 0%, transparent 38%),
+                linear-gradient(135deg, var(--bg1), var(--bg2));
     font-family:'Poppins',sans-serif;
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100vh;
-    color:#4A4A4A;
+    color:var(--text);
     overflow:hidden;
 }
 
+.shape{
+    position:fixed;
+    z-index:0;
+    opacity:0.45;
+    border-radius:50%;
+}
+.shape.circle1{width:250px;height:250px;top:5%;left:-80px;background:#F4A261;}
+.shape.circle2{width:190px;height:190px;bottom:10%;right:-90px;background:#A2D2FF;}
+.shape.circle3{width:140px;height:140px;top:60%;left:85%;background:#BDE0FE;}
+
 .balloon{
     position:fixed;
-    bottom:-150px;
-    width:40px;
-    height:50px;
-    background:#8EACBB;
-    border-radius:50%;
+    bottom:-160px;
+    width:44px;
+    height:56px;
+    background:linear-gradient(150deg,#F7B7A3,#D17EBD);
+    border-radius:48% 52% 50% 50%;
     animation:floatUp 12s linear infinite;
-    opacity:0.35;
+    opacity:0.6;
     z-index:0;
     pointer-events:none;
 }
@@ -37,80 +57,143 @@ body{
     content:'';
     position:absolute;
     width:2px;
-    height:40px;
-    background:#aaa;
+    height:42px;
+    background:#d4b7c2;
     left:50%;
-    top:50px;
+    top:52px;
 }
+.balloon:nth-child(4){animation-delay:1.4s;}
+.balloon:nth-child(5){animation-delay:3.2s;}
+.balloon:nth-child(6){animation-delay:5.3s;}
+
 @keyframes floatUp{
-    from{transform:translateY(0);}
-    to{transform:translateY(-120vh);}
+    from{transform:translateY(0) rotate(-2deg);}
+    to{transform:translateY(-128vh) rotate(6deg);}
+}
+
+.sparkle{
+    position:fixed;
+    width:10px;
+    height:10px;
+    background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
+    border-radius:50%;
+    opacity:0.75;
+    pointer-events:none;
+    animation:twinkle 2.5s ease-in-out infinite;
+    z-index:1;
+}
+
+@keyframes twinkle{
+    0%,100%{transform:scale(0.85); opacity:0.5;}
+    50%{transform:scale(1.2); opacity:1;}
 }
 
 .card{
-    background:#fff;
-    width:95%;
-    max-width:450px;
-    padding:35px 25px;
-    border-radius:20px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.08);
+    background:linear-gradient(180deg, #ffffff 0%, #fbf7ff 100%);
+    width:92%;
+    max-width:510px;
+    padding:30px 24px;
+    border-radius:24px;
+    border:2px dashed rgba(142, 172, 187,0.25);
+    box-shadow:0 18px 40px rgba(70,70,100,0.23);
     text-align:center;
     position:relative;
     overflow:hidden;
     z-index:2;
 }
+.card:before, .card:after{
+    content:'';
+    position:absolute;
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    opacity:0.4;
+    background:linear-gradient(45deg,#ffe2fb, #bac8ff);
+    z-index:-1;
+}
+.card:before{top:-60px; right:-60px;}
+.card:after{bottom:-60px; left:-60px;}
 
 .main-title{
+    font-family:'Cooper Black', 'Fredoka One', 'Playfair Display', cursive;
     font-weight:700;
-    font-size:26px;
-    color:#2C3E50;
-    margin-bottom:5px;
+    font-size:38px;
+    color:#34495E;
+    margin-bottom:0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+    letter-spacing:1px;
+    line-height:1.2;
+}
+
+#message .panda{
+    animation:none !important;
+    transform:none !important;
+}
+
+.song-desc{
+    font-size:12px;
+    color:#5E728D;
+    margin:6px 0 14px;
 }
 
 .sub-title{
-    font-size:13px;
-    color:#95A5A6;
-    margin-bottom:15px;
+    font-size:14px;
+    color:#7B8EA6;
+    margin:4px 0 14px;
 }
 
 button{
     padding:10px 20px;
-    background:linear-gradient(45deg,#8EACBB,#6F8FA3);
+    background:linear-gradient(145deg,var(--primary),var(--primary-2));
     border:none;
     color:white;
-    border-radius:20px;
+    border-radius:25px;
     cursor:pointer;
-    transition:0.3s;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow:0 8px 15px rgba(125,124,172,0.35);
+    font-weight:600;
 }
-button:hover{ transform:scale(1.05); }
+button:hover{ transform:scale(1.05); box-shadow:0 12px 20px rgba(125,124,172,0.5); }
 
-input{
-    padding:8px;
-    border-radius:10px;
-    border:1px solid #ccc;
+input{ 
+    width:80%;
+    padding:10px;
+    border-radius:14px;
+    border:1px solid #D4D4E3;
     text-align:center;
     margin:10px 0;
+    font-size:15px;
 }
 
 .panda{
-    width:120px;
-    margin:10px auto;
+    width:132px;
+    margin:8px auto;
     animation:wiggle 2s infinite ease-in-out;
+    border-radius:50%;
+    box-shadow:0 8px 25px rgba(255, 186, 235, 0.45);
+    filter:drop-shadow(0 6px 12px rgba(46, 51, 120, 0.35));
+    transition:transform 0.3s ease;
 }
+.panda:hover{
+    transform:scale(1.08) rotate(-2deg);
+}
+
 @keyframes wiggle{
-    0%{ transform:rotate(-4deg);}
-    50%{ transform:rotate(4deg);}
-    100%{ transform:rotate(-4deg);}
+    0%{ transform:rotate(-5deg);}
+    50%{ transform:rotate(5deg);}
+    100%{ transform:rotate(-5deg);}
 }
 
 .menu{
     display:flex;
-    gap:8px;
+    gap:10px;
     margin-bottom:15px;
 }
 .menu button{
     flex:1;
-    font-size:12px;
+    font-size:13px;
+    background:linear-gradient(145deg,#9BC1F3,#F9A7B0);
+    border-radius:18px;
 }
 
 .section{ display:none; }
@@ -127,35 +210,37 @@ input{
     width:100%;
     aspect-ratio:1/1;
     overflow:hidden;
-    border-radius:15px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    border-radius:16px;
+    box-shadow:0 12px 25px rgba(60,72,99,0.18);
 }
 .slide{ display:none; height:100%; }
 .slide img{
     width:100%;
     height:100%;
     object-fit:cover;
+    filter:contrast(1.05) saturate(1.1);
 }
 .prev,.next{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    background:rgba(0,0,0,0.3);
+    background:rgba(94,108,152,0.43);
     color:white;
     border:none;
     padding:5px 10px;
     cursor:pointer;
+    border-radius:10px;
 }
-.prev{ left:5px; }
-.next{ right:5px; }
+.prev{ left:6px; }
+.next{ right:6px; }
 
 .song-cover{
-    width:120px;
-    height:120px;
+    width:128px;
+    height:128px;
     margin:10px auto;
     border-radius:50%;
     overflow:hidden;
-    box-shadow:0 0 15px rgba(0,0,0,0.2);
+    box-shadow:0 0 18px rgba(0,0,0,0.25);
 }
 .song-cover img{
     width:100%;
@@ -164,29 +249,31 @@ input{
 }
 
 .message-box{
-    background:#F8FBFC;
-    padding:15px;
-    border-radius:15px;
-    box-shadow:inset 0 0 10px rgba(0,0,0,0.05);
+    background:linear-gradient(145deg,#FAFFFD,#F1EEFF);
+    padding:16px;
+    border-radius:18px;
+    box-shadow:inset 0 0 12px rgba(0,0,0,0.06);
 }
 
 .cake{
-    font-size:80px;
+    font-size:88px;
     position:relative;
     margin:20px 0;
 }
 #candle{
     position:absolute;
-    top:-20px;
+    top:-22px;
     left:50%;
     transform:translateX(-50%);
-    font-size:30px;
+    font-size:34px;
 }
 #ageText{
-    font-size:28px;
+    font-size:29px;
     color:#E76F51;
-    animation:pop 1s ease forwards;
+    animation:pop 0.8s ease forwards;
+    margin-top:6px;
 }
+
 @keyframes pop{
     0%{ transform:scale(0); opacity:0;}
     100%{ transform:scale(1); opacity:1;}
@@ -194,30 +281,41 @@ input{
 
 .confetti{
     position:fixed;
-    width:8px;
-    height:8px;
+    width:9px;
+    height:9px;
     top:0;
     animation:fall 3s linear forwards;
     z-index:1;
     pointer-events:none;
+    border-radius:2px;
 }
+
 @keyframes fall{
-    to{ transform:translateY(100vh) rotate(360deg); opacity:0;}
+    to{ transform:translateY(100vh) rotate(360deg); opacity:0; }
 }
 </style>
 </head>
 <body>
 
-<div class="balloon" style="left:10%; animation-delay:0s;"></div>
-<div class="balloon" style="left:40%; animation-delay:3s;"></div>
-<div class="balloon" style="left:70%; animation-delay:6s;"></div>
+<div class="shape circle1"></div>
+<div class="shape circle2"></div>
+<div class="shape circle3"></div>
+
+<div class="balloon" style="left:8%; animation-delay:0s;"></div>
+<div class="balloon" style="left:36%; animation-delay:2.2s;"></div>
+<div class="balloon" style="left:63%; animation-delay:4.1s;"></div>
+<div class="balloon" style="left:82%; animation-delay:5.8s;"></div>
 
 <audio id="backsound" loop>
 <source src="greenday.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="blowSound">
-<source src="party.mp3" type="audio/mpeg">
+<source src="niup.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="winSound">
+<source src="cheer.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
@@ -274,7 +372,7 @@ input{
 </div>
 <h3>Ada titik titik di ujung doa</h3>
 <div class="song-note">Sal Priadi</div>
-<p>A Song That Remind Me Of Us</p>
+<p class="song-desc">A Song That Remind Me Of Us</p>
 <audio id="mainSong" controls>
 <source src="Salpri.mp3" type="audio/mpeg">
 </audio>
@@ -313,11 +411,13 @@ document.getElementById("opening").classList.remove("hidden");
 }
 
 function startWebsite(){
-document.getElementById("opening").classList.add("hidden");
-document.getElementById("mainContent").classList.remove("hidden");
-let bg=document.getElementById("backsound");
-bg.volume=0.3;
-bg.play();
+    document.getElementById("opening").classList.add("hidden");
+    document.getElementById("mainContent").classList.remove("hidden");
+    let bg=document.getElementById("backsound");
+    let winSound=document.getElementById("winSound");
+    if(winSound){ winSound.pause(); winSound.currentTime=0; }
+    bg.volume=0.3;
+    bg.play();
 }
 
 let mainSong=document.getElementById("mainSong");
@@ -337,26 +437,44 @@ slides[slideIndex].style.display="block";
 }
 
 function showSection(id){
-document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
 
-if(id==="message"){
-launchConfetti();
-}
+    // matikan efek cheer saat kembali ke isi utama (menu memori/song/message)
+    let winSound=document.getElementById("winSound");
+    if(winSound){ winSound.pause(); winSound.currentTime=0; }
+
+    if(id==="message"){
+        launchConfetti();
+    }
 }
 
 function launchConfetti(){
-for(let i=0;i<40;i++){
-let conf=document.createElement("div");
-conf.classList.add("confetti");
-conf.style.left=Math.random()*100+"vw";
-conf.style.backgroundColor=
-["#8EACBB","#D8E2DC","#95A5A6","#2C3E50","#F4A261"][Math.floor(Math.random()*5)];
-conf.style.animationDuration=(Math.random()*3+2)+"s";
-document.body.appendChild(conf);
-setTimeout(()=>conf.remove(),5000);
+    for(let i=0;i<40;i++){
+        let conf=document.createElement("div");
+        conf.classList.add("confetti");
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.backgroundColor=
+        ["#8EACBB","#D8E2DC","#95A5A6","#2C3E50","#F4A261"][Math.floor(Math.random()*5)];
+        conf.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),5000);
+    }
 }
+
+function createSparkle(){
+    const sparkle=document.createElement("div");
+    sparkle.classList.add("sparkle");
+    sparkle.style.left=Math.random()*100+"vw";
+    sparkle.style.top=Math.random()*35+"vh";
+    sparkle.style.width=Math.floor(Math.random()*7+6)+"px";
+    sparkle.style.height=sparkle.style.width;
+    sparkle.style.opacity=(Math.random()*0.8+0.3).toString();
+    document.body.appendChild(sparkle);
+    setTimeout(()=>sparkle.remove(),3500);
 }
+
+setInterval(createSparkle, 450);
 
 let audioContext, analyser, microphone, dataArray;
 function startMic(){
@@ -377,16 +495,25 @@ analyser.getByteFrequencyData(dataArray);
 let volume=dataArray.reduce((a,b)=>a+b)/dataArray.length;
 
 if(volume>60){
-document.getElementById("candle").innerText="💨";
-document.getElementById("ageText").classList.remove("hidden");
-document.getElementById("nextBtn").classList.remove("hidden");
+    document.getElementById("candle").innerText="💨";
+    document.getElementById("ageText").classList.remove("hidden");
+    document.getElementById("nextBtn").classList.remove("hidden");
 
-launchConfetti();
+    launchConfetti();
 
-let blowSound=document.getElementById("blowSound");
-blowSound.play();
+    let blowSound=document.getElementById("blowSound");
+    blowSound.currentTime=0;
+    blowSound.play();
 
-return;
+    let winSound=document.getElementById("winSound");
+    if(winSound){ winSound.currentTime=0; winSound.play(); }
+
+    document.querySelectorAll('.panda').forEach(el=> {
+        el.style.transform='scale(1.1) rotate(-3deg)';
+    });
+    setTimeout(()=>{document.querySelectorAll('.panda').forEach(el=>el.style.transform='');}, 900);
+
+    return;
 }
 requestAnimationFrame(detectBlow);
 }
@@ -394,4 +521,3 @@ requestAnimationFrame(detectBlow);
 
 </body>
 </html>
-
